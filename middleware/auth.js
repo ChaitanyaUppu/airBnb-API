@@ -6,6 +6,8 @@ module.exports = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // with this as decoded u can use req.user and identify the current user id and can use that 
+    // is to find his/her details and used like req.user.id
     req.user = decoded;
     next();
   } catch (err) {
