@@ -1,7 +1,7 @@
-const mongoose = requie('mongoose');
+const mongoose = require('mongoose');
 const guestSchema = new mongoose.Schema({
 
-    userId: { type: mongoose.Schema.Types.OnjectId, ref: 'user' },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     name: String,
     gender: String,
     age: Number,

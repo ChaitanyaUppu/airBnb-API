@@ -1,4 +1,3 @@
-
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -6,7 +5,7 @@ const User = require('../models/user');
 
 const router = express.Router();
 
-
+// signup
 router.post('/signup', async (req, res) => {
     const { name, email, password, role } = req.body;
 
@@ -37,12 +36,12 @@ router.post('/signup', async (req, res) => {
         res.json({ token });
 
     } catch (err) {
+        console.error(err);
         res.status(500).json({ msg: 'Server error' });
     }
 });
 
-
-
+// signin
 router.post('/signin', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -66,8 +65,10 @@ router.post('/signin', async (req, res) => {
         );
 
         res.json({ token });
+    
 
     } catch (err) {
+        console.error(err);
         res.status(500).json({ msg: 'Server error' });
     }
 });
