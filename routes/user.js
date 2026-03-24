@@ -74,4 +74,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 then send get request u get data
 */
 
+
+router.get('/mybookings', auth , async (req,res)=>{
+  const bookings = await Booking.find({userId: req.user.id});
+  res.json(guests);
+})
+
+//guests
+
+router.get('/myguests',auth, async (req,res)=>{
+  const guests= await guest.find({userId:req.user.id});
+  res.json({guests});
+})
+
 module.exports = router;
