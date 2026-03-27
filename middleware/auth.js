@@ -14,3 +14,9 @@ module.exports = (req, res, next) => {
     res.status(401).json({ msg: 'Token is not valid' });
   }
 };
+
+module.exports.isAdmin = (req, res, next) => {
+  console.log(req.user);
+  if (req.user.role !=='admin'||!req.user) return res.status(403).json({ msg: 'Admin access required' });
+  next();
+};

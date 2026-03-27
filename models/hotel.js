@@ -8,7 +8,8 @@ const hotelSchema = new mongoose.Schema({
     contactInfo: {type: mongoose.Schema.Types.ObjectId,ref: 'contactInfo'},
     photos: [String],
     amenities: [String],
-    active: boolean
+    active: Boolean,
+    userId : {type: mongoose.Schema.Types.ObjectId,ref: 'user'},
 },{timestamps: true});
 
 module.exports = mongoose.model('hotel',hotelSchema);
