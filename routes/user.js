@@ -87,4 +87,29 @@ router.get('/myguests',auth, async (req,res)=>{
   res.json({guests});
 })
 
+router.post('/myguests',auth,  async (req,res)=>{
+    try{
+      const newguest = new guest({...req.body,userId: req.user.id});
+     await newguest.save();
+     res.json({newguest});
+
+    }catch (err){
+      res.status(500).json({msg : 'server error'});
+    }
+})
+
+router.put('/myguests/:guestId',auth, async (req,res)=>{
+  const oldvalues = await guest.findOne({_id:req.params.guestId, userId: req.user.id});
+  if(!oldvalues) return res.status(404).json({msg : 'guest not found'});
+  Object.assign(oldvalues,req.body);
+  await oldvalues.save();
+  res.json({oldvalues});
+})
+
+router.delete('/myguests/:guestId',auth,async (req,res)=>{
+  const myguest = await guest.findOneAndDelete({_id:req.params.guestId, userId:req.user.id});
+  if(!myguest) return res.status(404).json({msg: 'guest not found'});
+  res.json({msg: 'gurst removed'})
+})
+
 module.exports = router;
