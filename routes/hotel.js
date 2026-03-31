@@ -55,4 +55,12 @@ router.put('/:hotelId', auth, auth.isAdmin, async (req, res) => {
 
 })
 
+
+router.delete('/:hotelId',auth,auth.isAdmin,async (req,res)=>{
+  const hotel = await Hotel.findByIdAndDelete(req.params.hotelId);
+  if(!hotel) res.status(404).json({msg: 'hotel not found'});
+  await ContactInfo.findByIdAndDelete(hotel.contactInfo);
+  res.json({msg : 'hotel deleted'});
+})
+
 module.exports = router;
